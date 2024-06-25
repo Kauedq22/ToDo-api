@@ -23,11 +23,11 @@ public class TaskService {
         Optional<Task> task  = this.taskRepositoy.findById(id);
         return task.orElseThrow( () -> new RuntimeException(
             "Task Not Found! Id: " + id + ", Type" + Task.class.getName()
-        ))
+        ));
     }
 
     @Transactional
-    public Task create(Task obj){
+    public Task create(Task obj) {
         User user = this.userService.findById(obj.getUser().getId());
         obj.setId(null);
         obj.setUser(user);
@@ -36,17 +36,17 @@ public class TaskService {
     }
 
     @Transactional
-    public Task update(Task obj){
+    public Task update(Task obj) {
         Task newObj = findById(obj.getId());
         newObj.setDescription(obj.getDescription());
         return this.taskRepositoy.save(newObj);
     }
 
-    public void delete(Long id){
+    public void delete(Long id) {
         findById(id);
-        try{
+        try {
             this.taskRepositoy.deleteById(id);
-        }catch(Exception e){
+        } catch (Exception e) {
             throw new RuntimeException("Unable to delete related entities");
         }
     }
