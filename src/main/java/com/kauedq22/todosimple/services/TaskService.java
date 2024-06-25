@@ -1,5 +1,6 @@
 package com.kauedq22.todosimple.services;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +25,12 @@ public class TaskService {
         return task.orElseThrow( () -> new RuntimeException(
             "Task Not Found! Id: " + id + ", Type" + Task.class.getName()
         ));
+    }
+
+    public List<Task> findByUserId(Long userId){
+        List<Task> tasks = this.taskRepositoy.findByUser_Id(userId);
+        return tasks;
+        
     }
 
     @Transactional

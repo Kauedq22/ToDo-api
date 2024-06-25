@@ -1,9 +1,12 @@
 package com.kauedq22.todosimple.services;
 
+
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+
 import com.kauedq22.todosimple.models.User;
 import com.kauedq22.todosimple.repositories.UserRepository;
 
