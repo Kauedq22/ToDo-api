@@ -56,10 +56,10 @@ public class TaskController {
         return ResponseEntity.noContent().build();
      }
 
-     @DeleteMapping
-     public ResponseEntity<Void> delete(@PathVariable Long id){
-        this.taskService.delete(id);
-        return ResponseEntity.noContent().build();
+     @DeleteMapping("/{id}")
+     public ResponseEntity<Void> delete(@PathVariable Long id) {
+         this.taskService.delete(id);
+         return ResponseEntity.noContent().build();
      }
 
     
