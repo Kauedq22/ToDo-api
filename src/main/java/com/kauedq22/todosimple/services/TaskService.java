@@ -9,26 +9,28 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.kauedq22.todosimple.models.Task;
 import com.kauedq22.todosimple.models.User;
-import com.kauedq22.todosimple.repositories.TaskRepositoy;
+import com.kauedq22.todosimple.repositories.TaskRepository;
+import com.kauedq22.todosimple.services.exceptions.DataBindingViolationException;
+import com.kauedq22.todosimple.services.exceptions.ObjectNotFoundException;
 
 @Service
 public class TaskService {
 
     @Autowired
-    private TaskRepositoy taskRepositoy;
+    private TaskRepository taskRepository;
 
     @Autowired
     private UserService userService;
 
     public Task findById(Long id){
-        Optional<Task> task  = this.taskRepositoy.findById(id);
-        return task.orElseThrow( () -> new RuntimeException(
+        Optional<Task> task  = this.taskRepository.findById(id);
+        return task.orElseThrow( () -> new ObjectNotFoundException(
             "Task Not Found! Id: " + id + ", Type" + Task.class.getName()
         ));
     }
 
     public List<Task> findByUserId(Long userId){
-        List<Task> tasks = this.taskRepositoy.findByUser_Id(userId);
+        List<Task> tasks = this.taskRepository.findByUser_Id(userId);
         return tasks;
         
     }
@@ -38,7 +40,7 @@ public class TaskService {
         User user = this.userService.findById(obj.getUser().getId());
         obj.setId(null);
         obj.setUser(user);
-        obj = this.taskRepositoy.save(obj);
+        obj = this.taskRepository.save(obj);
         return obj;
     }
 
@@ -46,15 +48,15 @@ public class TaskService {
     public Task update(Task obj) {
         Task newObj = findById(obj.getId());
         newObj.setDescription(obj.getDescription());
-        return this.taskRepositoy.save(newObj);
+        return this.taskRepository.save(newObj);
     }
 
     public void delete(Long id) {
         findById(id);
         try {
-            this.taskRepositoy.deleteById(id);
+            this.taskRepository.deleteById(id);
         } catch (Exception e) {
-            throw new RuntimeException("Unable to delete related entities");
+            throw new DataBindingViolationException("Unable to delete related entities");
         }
     }
 }
