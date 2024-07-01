@@ -1,5 +1,4 @@
 package com.kauedq22.todosimple.exceptions;
-
 import javax.validation.ConstraintViolationException;
 
 import org.apache.commons.lang3.exception.ExceptionUtils;
@@ -28,7 +27,6 @@ public class GlobalExceptionsHandler extends ResponseEntityExceptionHandler {
     @Value("${server.error.include-exception}")
     private boolean printStackTrace;
 
-    @SuppressWarnings("null")
     @Override
     @ResponseStatus(HttpStatus.UNPROCESSABLE_ENTITY)
     protected ResponseEntity<Object> handleMethodArgumentNotValid(
@@ -44,7 +42,6 @@ public class GlobalExceptionsHandler extends ResponseEntityExceptionHandler {
         }
         return ResponseEntity.unprocessableEntity().body(errorResponse);
     }
-
 
     @ExceptionHandler(Exception.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
@@ -128,6 +125,5 @@ public class GlobalExceptionsHandler extends ResponseEntityExceptionHandler {
         }
         return ResponseEntity.status(httpStatus).body(errorResponse);
     }
-}
-    
 
+}
