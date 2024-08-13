@@ -50,8 +50,8 @@ Pré-requisitos:
   ```proprieties
   # Database config
   spring.datasource.url=jdbc:mysql://localhost:3306/todosimple?createDatabaseIfNotExist=true
-  spring.datasource.username=root
-  spring.datasource.password=root
+  spring.datasource.username=
+  spring.datasource.password=
   ```
 
   - Passo 2.3: Voltar para a pasta raíz do projeto:
